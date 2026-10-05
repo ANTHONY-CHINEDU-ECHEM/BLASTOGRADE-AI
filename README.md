@@ -3,7 +3,8 @@
 **Multi task deep learning for Gardner blastocyst grading, with heatmaps that show where each grade comes from**
 
 <p align="center">
-  <img src="docs/images/gradcam_gallery.png" alt="Grad CAM heatmaps for expansion, inner cell mass and trophectoderm" width="820">
+  <img width="1664" height="1696" alt="gradcam_gallery" src="https://github.com/user-attachments/assets/3d814870-5275-4bd6-954d-c8a14126e5b8" />
+
 </p>
 
 ## Project brief
@@ -28,7 +29,7 @@ Annotated blastocyst image sets are small and licence restricted, so the model h
   <tr><td>Serving</td><td>FastAPI service for single images and ranked cohorts, returning grades, probabilities and heatmap overlays; Dockerised</td></tr>
 </table>
 
-<p align="center"><img src="docs/images/dataset_gallery.png" alt="Rendered blastocysts across the Gardner scale" width="820"></p>
+<p align="center"><img width="1920" height="1008" alt="dataset_gallery" src="https://github.com/user-attachments/assets/ab52014f-2154-4a68-b634-bd9474fed3e2" /></p>
 
 ## Key findings
 
@@ -44,7 +45,7 @@ The training labels disagree with the true rendered grade at realistic rates: ab
   <tr><td><b>Complete Gardner grade correct</b></td><td align="center"><b>81.2%</b></td><td align="center"><b>96.2%</b></td><td align="center"></td></tr>
 </table>
 
-<p align="center"><img src="docs/images/agreement_with_reference.png" alt="Agreement with reference grades: annotator against model" width="560"></p>
+<p align="center"><img width="1152" height="640" alt="agreement_with_reference" src="https://github.com/user-attachments/assets/f5fe80a7-b1ac-4f80-a76a-9c6692701288" /></p>
 
 The mechanism is the reason a consistency tool can work at all. Individual annotation errors are scattered in both directions, so across thousands of examples they largely cancel and the network converges on the consensus. The business reading is that a model trained on a laboratory's own imperfect historical grades can still become a steadier grader than any one of the people who produced them. The complete grade matters most: because three components each have to be right, a single annotator gets the whole code right only 81 percent of the time, and that is the figure the model moves to 96 percent.
 
@@ -52,7 +53,7 @@ It also explains a subtlety in evaluation. Scored against the noisy annotator la
 
 ### Trophectoderm is the hardest component, and every error is to a neighbouring grade
 
-<p align="center"><img src="docs/images/confusion_matrices.png" alt="Confusion matrices for the three heads" width="900"></p>
+<p align="center"><img width="2000" height="672" alt="confusion_matrices" src="https://github.com/user-attachments/assets/d04af06f-ad93-489f-99eb-dfe8cb158094" /></p>
 
 Expansion and inner cell mass are close to solved on this data. Trophectoderm accounts for almost all remaining errors (38 of 983 gradable test embryos), concentrated between B and C. This mirrors the clinical literature, where trophectoderm is consistently the component with the lowest agreement between observers, and it has a physical explanation: the grade depends on counting small cells around a thin ring, the first detail lost to blur and low resolution. No trophectoderm prediction was more than one grade from the reference. For a laboratory this identifies where a second reader adds the most value.
 
@@ -70,7 +71,7 @@ Flagging every embryo whose least confident head is under 60 percent sends 18 pe
 
 Many laboratories use a simple cut: a blastocyst is good quality if it is expansion 3 or more with both letter grades B or better. On that binary decision the model is 98.5 percent accurate, with precision of 99.4 percent and recall of 97.9 percent. Errors between A and B do not change the decision, so the operational impact of the remaining trophectoderm confusion is smaller than the raw accuracy suggests.
 
-<p align="center"><img src="docs/images/training_curves.png" alt="Training loss and validation agreement by task" width="760"></p>
+<p align="center"><img width="1680" height="608" alt="training_curves" src="https://github.com/user-attachments/assets/eb6ce74b-db0e-4b5a-9f97-28fa77647e72" /></p>
 
 ## Architecture
 
