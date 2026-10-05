@@ -1,0 +1,10 @@
+services:
+  api:
+    build: .
+    image: blastograde-ai:latest
+    ports: ["8000:8000"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2g
