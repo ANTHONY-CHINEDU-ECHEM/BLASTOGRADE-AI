@@ -1,0 +1,32 @@
+# BlastoGrade AI configuration. Paths are relative to the repository root.
+seed: 7
+
+data:
+  root: data/synthetic
+  n_images: 6400
+  render_size: 192          # canvas size used by the renderer
+  stored_size: 128          # size written to disk
+  split: {train: 0.70, val: 0.12, test: 0.18}
+  annotator_noise: {expansion: 0.06, icm: 0.10, te: 0.12}
+
+model:
+  backbone: resnet18        # resnet18 | resnet34 | resnet50 | efficientnet_b0
+  pretrained: false         # set true to start from ImageNet weights (needs internet once)
+  dropout: 0.25
+  cam_layer: auto           # auto picks the deepest stage with at least a 7 by 7 feature map
+
+training:
+  image_size: 128
+  batch_size: 32
+  epochs: 7
+  learning_rate: 0.002
+  weight_decay: 0.0005
+  label_smoothing: 0.05
+  task_weights: {expansion: 1.0, icm: 1.0, te: 1.0}
+  num_workers: 0
+  patience: 4
+
+artifacts:
+  checkpoint: models_store/blastograde.pt
+  report_dir: reports
+  figure_dir: docs/images
